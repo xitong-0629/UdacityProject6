@@ -31,9 +31,9 @@ contract ExerciseC6B {
         contractOwner = msg.sender;
     }
 
-    fallback() public payable {
-        buy(msg.sender);
-    }
+    // fallback() public payable {
+    //     buy(msg.sender);
+    // }
 
     /********************************************************************************************/
     /*                                       FUNCTION MODIFIERS                                 */
