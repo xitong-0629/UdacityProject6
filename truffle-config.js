@@ -22,6 +22,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require("web3")
 const mnemonic = "boat action diet spawn tribe inform flush apart satisfy trial alarm shuffle";
 const provider = new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/282593c9f59349cbaac2c83a17c003d1", 7);
+const localProvider = new HDWalletProvider(mnemonic, "http://127.0.0.1:9545/", 0, 50);
 
 // const HDWalletProvider = require('truffle-hdwallet-provider');
 // const infuraKey = "fj4jll3k.....";
@@ -48,9 +49,10 @@ module.exports = {
     // options below to some value.
     
     development: {
-     host: "127.0.0.1",     // Localhost (default: none)
-     port: 9545,            // Standard Ethereum port (default: none)
-     network_id: "*"       // Any network (default: none)
+      provider: () => localProvider,
+      // host: "127.0.0.1",     // Localhost (default: none)
+      // port: 9545,            // Standard Ethereum port (default: none)
+      network_id: "*"       // Any network (default: none)
     },
 
     // Another network with more advanced options...
