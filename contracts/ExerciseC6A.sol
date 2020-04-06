@@ -95,7 +95,7 @@ contract ExerciseC6A {
     *
     * When operational mode is disabled, all write transactions except for this one will fail
     */
-    function setOperatingStatus(bool mode) external requireIsOperational requireContractOwner {
+    function setOperatingStatus(bool mode) external {
         require(mode != operational, "New mode must be different from existing mode");
         require(userProfiles[msg.sender].isAdmin, "Caller is not an admin");
 
