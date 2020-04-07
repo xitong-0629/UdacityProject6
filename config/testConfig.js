@@ -17,15 +17,12 @@ var Config = async function(accounts) {
         "0x2f2899d6d35b1a48a4fbdc93a37a72f264a9fca7"
     ];
 
-
     let owner = accounts[0];
-    let exerciseC6A = await ExerciseC6A.new();
     let exerciseC6B = await ExerciseC6B.new();
     
     return {
         owner: owner,
         testAddresses: testAddresses,
-        exerciseC6A: exerciseC6A,
         exerciseC6B: exerciseC6B
     }
 }

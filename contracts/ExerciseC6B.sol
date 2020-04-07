@@ -31,7 +31,7 @@ contract ExerciseC6B {
         contractOwner = msg.sender;
     }
 
-    fallback() public payable {
+    fallback() external payable {
         buy(msg.sender);
     }
 
