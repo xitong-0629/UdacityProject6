@@ -24,13 +24,11 @@ contract ExerciseC6CApp {
     }
 
     function calculateBonus(uint256 sales) internal view requireContractOwner returns(uint256) {
-        if (sales < 100) {
+        if(sales < 100) {
             return sales.mul(5).div(100);
-        }
-        else if (sales < 500) {
+        }else if(sales < 500) {
             return sales.mul(7).div(100);
-        }
-        else {
+        }else {
             return sales.mul(10).div(100);
         }
     }
@@ -38,8 +36,6 @@ contract ExerciseC6CApp {
     function addSale(string calldata id, uint256 amount) external requireContractOwner {
         exerciseC6C.updateEmployee(id, amount, calculateBonus(amount));
     }
-    // Temporary stub
-    // function updateEmployee(string id, uint256 sales,vuint256 bonus) internal requireContractOwner {}
 }
 
 contract ExerciseC6C {
