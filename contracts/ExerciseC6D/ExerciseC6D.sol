@@ -41,7 +41,6 @@ contract ExerciseC6D {
     // Key = hash(index, flight, timestamp)
     mapping(bytes32 => ResponseInfo) private oracleResponses;
 
-
     // Event fired each time an oracle submits a response
     event FlightStatusInfo(string flight, uint256 timestamp, uint8 status, bool verified);
 
@@ -51,9 +50,6 @@ contract ExerciseC6D {
         uint8 status;
     }
     mapping(bytes32 => FlightStatus) flights;
-
-
-
 
     constructor() public {
         contractOwner = msg.sender;
@@ -91,7 +87,7 @@ contract ExerciseC6D {
         oracles[msg.sender] = indexes;
     }
 
-    function getOracle(address account) external view requireContractOwner returns(uint8[3]) {
+    function getOracle(address account) external view requireContractOwner returns(uint8[3] memory) {
         return oracles[account];
     }
 
@@ -111,7 +107,7 @@ contract ExerciseC6D {
 
 
     // Generate a request
-    function fetchFlightStatus(string flight, uint256 timestamp) external {
+    function fetchFlightStatus(string calldata flight, uint256 timestamp) external {
         // Generate a number between 0 - 9 to determine which oracles may respond
 
         // CODE EXERCISE 2: Replace the hard-coded value of index with a random index based on the calling account
@@ -140,7 +136,7 @@ contract ExerciseC6D {
     // For the response to be accepted, there must be a pending request that is open
     // and matches one of the three Indexes randomly assigned to the oracle at the
     // time of registration (i.e. uninvited oracles are not welcome)
-    function submitOracleResponse(uint8 index, string flight, uint256 timestamp, uint8 statusId) external {
+    function submitOracleResponse(uint8 index, string calldata flight, uint256 timestamp, uint8 statusId) external {
         require((oracles[msg.sender][0] == index) || (oracles[msg.sender][1] == index) || (oracles[msg.sender][2] == index),
             "Index does not match oracle request");
 
@@ -179,16 +175,15 @@ contract ExerciseC6D {
     /************************************ BEGIN: Utility Functions ************************************/
 
     // Query the status of any flight
-    function viewFlightStatus(string flight, uint256 timestamp) external view returns(uint8) {
-            require(flights[flightKey].hasStatus, "Flight status not available");
-
-            bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
-            return flights[flightKey].status;
+    function viewFlightStatus(string calldata flight, uint256 timestamp) external view returns(uint8) {
+        bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
+        require(flights[flightKey].hasStatus, "Flight status not available");
+        return flights[flightKey].status;
     }
 
 
     // Returns array of three non-duplicating integers from 0-9
-    function generateIndexes(address account) internal returns(uint8[3]) {
+    function generateIndexes(address account) internal returns(uint8[3] memory) {
         uint8[3] memory indexes;
         indexes[0] = getRandomIndex(account);
 

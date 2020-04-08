@@ -63,7 +63,7 @@ contract('ExerciseC6D', async (accounts) => {
       for(let idx=0;idx<3;idx++) {
         try {
           // Submit a response...it will only be accepted if there is an Index match
-          await config.exerciseC6D.submitOracleResponse(oracleIndexes[idx], flight, timestamp, 10, { from: accounts[a] });
+          await config.exerciseC6D.submitOracleResponse(oracleIndexes[idx], flight, timestamp, 10, {from:accounts[a]});
 
           // Check to see if flight status is available
           // Only useful while debugging since flight status is not hydrated until a 
